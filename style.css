@@ -1,0 +1,312 @@
+/* =========================================================
+   RESET + BASE
+   ========================================================= */
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body{
+  margin:0; padding:0; width:100%; min-height:100%;
+  background:radial-gradient(circle at 50% 0%, #3a0d24 0%, #220714 45%, #150410 100%);
+  color:#f7e9ef;
+  font-family:'Poppins','Noto Sans Devanagari',sans-serif;
+  overflow-x:hidden;
+}
+h1,h2{ font-family:'Playfair Display',serif; margin:0; }
+ 
+/* =========================================================
+   AMBIENT BACKGROUND — falling hearts & flowers
+   ========================================================= */
+.bg-fx{
+  position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+}
+.fx-particle{
+  position:absolute; top:-40px; will-change:transform, opacity;
+  animation:fxFall linear forwards;
+  filter:drop-shadow(0 0 6px rgba(255,90,140,.45));
+}
+@keyframes fxFall{
+  0%{ transform:translateY(0) rotate(0deg); opacity:0; }
+  10%{ opacity:.9; }
+  90%{ opacity:.8; }
+  100%{ transform:translateY(110vh) rotate(360deg); opacity:0; }
+}
+ 
+/* =========================================================
+   SCREENS
+   ========================================================= */
+.screen{
+  position:fixed; inset:0; z-index:1;
+  display:flex; align-items:center; justify-content:center;
+  padding:30px 20px;
+  overflow-y:auto;
+  opacity:0; visibility:hidden;
+  transition:opacity .6s ease, visibility .6s;
+}
+.screen.active{ opacity:1; visibility:visible; }
+ 
+/* glass card base */
+.card.glass{
+  background:rgba(60,18,38,.55);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-radius:26px;
+  box-shadow:0 20px 60px rgba(0,0,0,.45), 0 0 40px rgba(255,60,120,.12);
+}
+ 
+/* =========================================================
+   LOGIN SCREEN
+   ========================================================= */
+.login-wrap{
+  display:flex; align-items:center; justify-content:center;
+  gap:60px; flex-wrap:wrap; max-width:1000px; width:100%;
+}
+.photo-card{
+  position:relative; width:260px; margin:0;
+  background:#1c0a14; border:6px solid #2a0f1c;
+  border-radius:18px; box-shadow:0 20px 50px rgba(0,0,0,.55);
+  transform:rotate(-4deg);
+  transition:transform .4s ease;
+}
+.photo-card:hover{ transform:rotate(-1deg) scale(1.02); }
+.photo-card img{
+  width:100%; height:300px; object-fit:cover; border-radius:12px;
+  display:block; background:linear-gradient(150deg,#43102a,#220714);
+}
+.photo-card img.broken{ display:none; }
+.photo-placeholder{
+  display:none; flex-direction:column; align-items:center; justify-content:center;
+  gap:10px; width:100%; height:300px; border-radius:12px;
+  background:linear-gradient(150deg,#43102a,#220714);
+  font-size:2.2rem; text-align:center;
+}
+.photo-placeholder.show{ display:flex; }
+.photo-placeholder span{
+  font-size:.72rem; font-weight:500; color:#e7c3d2; opacity:.85; line-height:1.5;
+}
+.photo-placeholder code{
+  background:rgba(255,255,255,.1); padding:1px 6px; border-radius:6px; font-size:.7rem;
+}
+.photo-caption{
+  text-align:center; font-style:italic; font-size:.82rem;
+  color:#ffd9e6; padding:10px 6px 4px; margin:0;
+}
+ 
+.login-card{
+  width:360px; max-width:100%; padding:38px 34px; text-align:center;
+}
+.lock-icon{
+  width:60px; height:60px; margin:0 auto 18px; border-radius:50%;
+  background:linear-gradient(160deg,#ff5f8d,#e8244f);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; box-shadow:0 0 0 8px rgba(232,36,79,.15), 0 0 30px rgba(255,80,130,.55);
+}
+.login-card h1{ font-size:1.55rem; color:#ffe3ec; line-height:1.3; }
+.heart-divider{ font-size:.95rem; margin:8px 0; opacity:.9; }
+.sub-text{ font-size:.85rem; color:#e7c3d2; opacity:.85; margin:0 0 18px; }
+ 
+.code-input-wrap{ position:relative; margin-bottom:14px; }
+#codeInput{
+  width:100%; padding:14px 46px 14px 18px; border-radius:14px;
+  border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.25);
+  color:#ffeef4; font-size:1.3rem; letter-spacing:.4em; text-align:center;
+  outline:none; transition:border-color .2s, box-shadow .2s;
+}
+#codeInput:focus{ border-color:#ff5f8d; box-shadow:0 0 0 3px rgba(255,95,141,.25); }
+.eye-btn{
+  position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  background:none; border:none; font-size:1.1rem; cursor:pointer; opacity:.7;
+}
+.eye-btn:hover{ opacity:1; }
+ 
+.dots{ display:flex; justify-content:center; gap:8px; margin-bottom:14px; }
+.dots span{
+  width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.18);
+  transition:background .2s, transform .2s;
+}
+.dots span.filled{ background:#ff5f8d; transform:scale(1.2); box-shadow:0 0 8px rgba(255,95,141,.7); }
+ 
+.error-msg{
+  color:#ff8aa0; font-size:.8rem; font-weight:600; height:18px;
+  margin:0 0 14px; opacity:0; transition:opacity .25s;
+}
+.error-msg.show{ opacity:1; }
+ 
+.shake{ animation:shakeCard .45s ease; }
+@keyframes shakeCard{
+  0%,100%{ transform:translateX(0); }
+  20%{ transform:translateX(-10px); }
+  40%{ transform:translateX(8px); }
+  60%{ transform:translateX(-6px); }
+  80%{ transform:translateX(4px); }
+}
+ 
+/* =========================================================
+   BUTTONS (shared)
+   ========================================================= */
+.btn{
+  border:none; cursor:pointer; border-radius:50px;
+  font-family:'Poppins',sans-serif; font-weight:600; font-size:.95rem;
+  padding:14px 30px; color:#fff; transition:transform .15s, box-shadow .25s, background .3s;
+}
+.btn:active{ transform:scale(.96); }
+ 
+.btn-unlock{
+  width:100%; background:linear-gradient(135deg,#ff5f8d,#e8244f);
+  box-shadow:0 10px 26px rgba(232,36,79,.45);
+}
+.btn-unlock:hover{ box-shadow:0 14px 32px rgba(232,36,79,.6); }
+ 
+/* =========================================================
+   MAIN CELEBRATION SCREEN
+   ========================================================= */
+#mainScreen{ flex-direction:column; text-align:center; }
+.main-header h1{
+  font-size:1.7rem; line-height:1.5; max-width:760px; margin:0 auto;
+  background:linear-gradient(120deg,#ff7a9e,#ffd166);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 30px rgba(255,120,160,.25);
+}
+.tagline{
+  font-style:italic; color:#e7c3d2; opacity:.85; margin:10px 0 0; font-size:.95rem;
+}
+ 
+.cake-zone{ margin:34px 0 10px; display:flex; justify-content:center; }
+.cake{ position:relative; width:230px; }
+ 
+.tier{
+  position:relative; margin:0 auto; border-radius:16px 16px 8px 8px;
+  box-shadow:inset 0 -10px 14px rgba(0,0,0,.18), 0 0 30px rgba(255,40,110,.25);
+}
+.tier-top{ width:130px; height:64px; background:linear-gradient(180deg,#ff8fc1,#ff2f7e); z-index:3; }
+.tier-mid{ width:180px; height:70px; background:linear-gradient(180deg,#ff6fae,#e91f6e); margin-top:-8px; z-index:2; }
+.tier-base{ width:230px; height:76px; background:linear-gradient(180deg,#ff5fa2,#d81862); margin-top:-8px; z-index:1; }
+ 
+.icing-top, .icing-drip{
+  position:absolute; top:-7px; left:6px; right:6px; height:14px;
+  background:#fff0f6; border-radius:50%/100%; opacity:.95;
+}
+.icing-drip::after{ content:''; }
+ 
+.dot{ position:absolute; width:6px; height:6px; border-radius:50%; background:#ffd166; top:14px; }
+.d1{ left:20%; } .d2{ left:50%; top:24px; background:#9be7ff;} .d3{ left:75%; }
+ 
+.mini-candle{
+  position:absolute; bottom:100%; width:6px; height:22px; border-radius:2px;
+  background:repeating-linear-gradient(45deg,#fff 0 3px,currentColor 3px 6px);
+}
+.c-pink{ color:#ff7aa2; } .c-gold{ color:#ffd166; } .c-blue{ color:#9be7ff; }
+.row-top{ position:absolute; top:-22px; left:18px; display:flex; gap:18px; }
+.tier-mid .mini-candle, .tier-base .mini-candle{ bottom:auto; top:-20px; }
+.tier-mid .mini-candle:nth-of-type(1){ left:18px; }
+.tier-mid .mini-candle:nth-of-type(2){ left:62px; }
+.tier-mid .mini-candle:nth-of-type(3){ left:106px; }
+.tier-mid .mini-candle:nth-of-type(4){ left:150px; }
+.tier-base .mini-candle:nth-of-type(1){ left:14px; }
+.tier-base .mini-candle:nth-of-type(2){ left:58px; }
+.tier-base .mini-candle:nth-of-type(3){ left:102px; }
+.tier-base .mini-candle:nth-of-type(4){ left:146px; }
+.tier-base .mini-candle:nth-of-type(5){ left:190px; }
+ 
+.main-candle{
+  position:absolute; top:-46px; left:50%; transform:translateX(-50%);
+  width:9px; height:38px; border-radius:3px;
+  background:repeating-linear-gradient(45deg,#fff 0 4px,#ffd166 4px 8px);
+  z-index:4;
+}
+.flame{
+  position:absolute; top:-16px; left:50%; transform:translateX(-50%);
+  width:11px; height:18px; border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  background:radial-gradient(circle at 50% 30%,#fff7c2,#ffb340 55%,#ff6a1f 100%);
+  box-shadow:0 0 16px 4px rgba(255,170,60,.75);
+  animation:flicker 1s ease-in-out infinite alternate;
+  transform-origin:bottom center;
+  transition:opacity .4s, transform .4s;
+}
+@keyframes flicker{
+  0%{ transform:translateX(-50%) scale(1) rotate(-4deg); }
+  100%{ transform:translateX(-50%) scale(1.15) rotate(4deg); }
+}
+.flame.out{ opacity:0; transform:translateX(-50%) scale(.2); animation:none; }
+ 
+.plate{
+  width:250px; height:16px; border-radius:50%; margin:0 auto;
+  background:linear-gradient(180deg,#3a142a,#220a1a);
+  box-shadow:0 10px 20px rgba(0,0,0,.5);
+}
+ 
+.main-buttons{ display:flex; gap:16px; justify-content:center; margin-top:30px; flex-wrap:wrap; }
+.btn-blow{ background:linear-gradient(135deg,#ff5f8d,#e8244f); box-shadow:0 10px 26px rgba(232,36,79,.45); }
+.btn-blow:hover{ box-shadow:0 14px 32px rgba(232,36,79,.6); }
+.btn-blow.done{
+  background:linear-gradient(135deg,#2fae5a,#1d7d40);
+  box-shadow:0 10px 26px rgba(31,150,70,.4);
+  cursor:default;
+}
+.btn-note{ background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); }
+.btn-note:hover{ background:rgba(255,255,255,.16); }
+ 
+/* =========================================================
+   NOTE SCREEN
+   ========================================================= */
+.note-wrap{
+  display:flex; align-items:flex-start; justify-content:center;
+  gap:50px; flex-wrap:wrap; max-width:1020px; width:100%;
+}
+.note-photo-card{ margin-top:20px; }
+.note-card{
+  width:520px; max-width:100%; padding:36px 38px;
+}
+.note-heart{ font-size:1.6rem; text-align:center; margin-bottom:8px; }
+.note-title{
+  font-size:1.1rem; text-align:center; color:#ff8fb3; line-height:1.7;
+  font-family:'Noto Sans Devanagari','Playfair Display',serif;
+}
+.note-card .sub-text{ text-align:center; }
+.divider{
+  height:1px; margin:18px 0 22px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+}
+.note-body{
+  font-family:'Noto Sans Devanagari','Poppins',sans-serif;
+  font-size:.98rem; line-height:2; white-space:pre-wrap;
+  min-height:120px;
+}
+.note-body .cursor{
+  display:inline-block; width:2px; height:1em; background:#ff8fb3;
+  margin-left:2px; vertical-align:middle;
+  animation:blinkCursor .8s step-end infinite;
+}
+@keyframes blinkCursor{ 50%{ opacity:0; } }
+ 
+.btn-back{
+  display:block; margin:26px auto 0;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
+}
+.btn-back:hover{ background:rgba(255,255,255,.16); }
+ 
+/* =========================================================
+   CONFETTI / BURST FX LAYER
+   ========================================================= */
+.fx-layer{ position:fixed; inset:0; z-index:60; pointer-events:none; overflow:hidden; }
+.confetti-piece{
+  position:absolute; top:-20px; opacity:.95;
+  animation:confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  to{ transform:translateY(110vh) rotate(540deg); opacity:.15; }
+}
+ 
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width:760px){
+  .login-wrap, .note-wrap{ gap:28px; }
+  .login-card, .note-card{ padding:28px 22px; }
+  .main-header h1{ font-size:1.25rem; }
+  .cake{ width:200px; }
+  .tier-base{ width:200px; }
+  .tier-mid{ width:155px; }
+  .tier-top{ width:115px; }
+  .photo-card{ width:210px; }
+  .photo-card img{ height:240px; }
+}
+ 
