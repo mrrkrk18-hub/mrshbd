@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>A Special Surprise Awaits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+  <!-- ambient falling hearts + flowers layer (sits behind everything) -->
+  <div class="bg-fx" id="bgFx"></div>
+ 
+  <!-- =========================================================
+       SCREEN 1 — LOGIN / PASSWORD GATE
+       ========================================================= -->
+  <section id="loginScreen" class="screen active">
+    <div class="login-wrap">
+ 
+      <!-- Photo space — paste your image link in the src below -->
+      <figure class="photo-card login-photo-card">
+        <img id="loginPhoto" src="firstimg.jpeg" alt="Birthday girl">
+        <div class="photo-placeholder">📷<span>Paste photo link in<br><code>#loginPhoto</code></span></div>
+        <figcaption class="photo-caption">JUST FOR YOU 🌺</figcaption>
+      </figure>
+ 
+      <div class="card glass login-card">
+        <div class="lock-icon">🔒</div>
+        <h1>A Special Surprise Awaits</h1>
+        <div class="heart-divider">❤️</div>
+        <p class="sub-text">Enter the Secret Birthday Code</p>
+ 
+        <div class="code-input-wrap">
+          <input type="password" id="codeInput" maxlength="6" inputmode="numeric"
+                 autocomplete="off" placeholder="••••••">
+          <button type="button" class="eye-btn" id="eyeBtn" aria-label="Show code">👁️</button>
+        </div>
+ 
+        <div class="dots" id="dotsIndicator">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+ 
+        <p class="error-msg" id="errorMsg">Oops! Wrong Secret Code 🔒 Try again!</p>
+ 
+        <button class="btn btn-unlock" id="unlockBtn">Unlock Surprise 💗</button>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- =========================================================
+       SCREEN 2 — MAIN CELEBRATION PAGE
+       ========================================================= -->
+  <section id="mainScreen" class="screen">
+    <header class="main-header">
+      <h1>🎉 Wish You 🎈 A Very 🎊 Very Happiest 🥳 Birthday 🎂 Shejuu.. 🫱🏻‍🫲🏻🫂♥️✨💯</h1>
+      <p class="tagline">आजचा दिवस फक्त तुझा आहे, Shejuu 🌸</p>
+    </header>
+ 
+    <div class="cake-zone">
+      <div class="cake" id="cakeEl">
+ 
+        <div class="candle-row row-top">
+          <span class="mini-candle c-blue"></span>
+          <span class="mini-candle c-gold"></span>
+          <span class="mini-candle c-pink"></span>
+        </div>
+ 
+        <div class="tier tier-top">
+          <div class="icing-top"></div>
+          <div class="main-candle" id="mainCandle">
+            <div class="flame" id="flame"></div>
+          </div>
+          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+        </div>
+ 
+        <div class="tier tier-mid">
+          <div class="icing-drip"></div>
+          <span class="mini-candle c-pink"></span>
+          <span class="mini-candle c-gold"></span>
+          <span class="mini-candle c-blue"></span>
+          <span class="mini-candle c-pink"></span>
+        </div>
+ 
+        <div class="tier tier-base">
+          <div class="icing-drip"></div>
+          <span class="mini-candle c-gold"></span>
+          <span class="mini-candle c-pink"></span>
+          <span class="mini-candle c-blue"></span>
+          <span class="mini-candle c-gold"></span>
+          <span class="mini-candle c-pink"></span>
+        </div>
+ 
+        <div class="plate"></div>
+      </div>
+    </div>
+ 
+    <div class="main-buttons">
+      <button class="btn btn-blow" id="blowBtn">Blow The Candle 🕯️</button>
+      <button class="btn btn-note" id="noteBtn">Open My Special Note ❤️</button>
+    </div>
+  </section>
+ 
+  <!-- =========================================================
+       SCREEN 3 — SPECIAL NOTE PAGE
+       ========================================================= -->
+  <section id="noteScreen" class="screen">
+    <div class="note-wrap">
+ 
+      <!-- Photo space — paste your image link in the src below -->
+      <figure class="photo-card note-photo-card">
+        <img id="notePhoto" src="secondimg.jpeg" alt="Birthday girl">
+        <div class="photo-placeholder">📷<span>Paste photo link in<br><code>#notePhoto</code></span></div>
+        <figcaption class="photo-caption">Every moment spent with you is a gift to me 🥹 Shejuu 🌺✨💯</figcaption>
+      </figure>
+ 
+      <div class="card glass note-card">
+        <div class="note-heart">❤️</div>
+        <h2 class="note-title">🎉 जगातील सर्वात सुंदर 😍 मुलीला 😘 वाढदिवसाच्या 🎂 खूप खूप म्हंजे खूप 🥳 सार्या शुभेच्छा....!! गौराई.. 🌺 🌍♥️🌺✨💯</h2>
+        <p class="sub-text">💗 Just for you, Shejuu 💗</p>
+        <div class="divider"></div>
+ 
+        <p class="note-body" id="noteBody"></p>
+ 
+        <button class="btn btn-back" id="backBtn">← Back to Celebration</button>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- confetti / burst effects layer -->
+  <div class="fx-layer" id="fxLayer"></div>
+ 
+  <!-- EmailJS SDK — lets the page send an email without any backend server -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
